@@ -1,20 +1,33 @@
 package com.jramirez.soccerteamboard.presentation.teamdetail
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.jramirez.soccerteamboard.service.interactor.GetTeamNextEventsInteractor
-import com.jramirez.soccerteamboard.service.interactor.GetTeamNextEventsInteractorImpl
-import kotlinx.coroutines.Dispatchers
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.jramirez.soccerteamboard.domain.Event
+import com.jramirez.soccerteamboard.presentation.BaseVieModel
+import com.jramirez.soccerteamboard.service.ResultServiceHandler
+import com.jramirez.soccerteamboard.service.repository.TeamNextEventRepository
+import com.jramirez.soccerteamboard.service.repository.TeamNextEventsRepositoryImpl
+import kotlinx.coroutines.launch
 
 class TeamDetailViewModel(
-    private val getTeamNextEventsInteractor: GetTeamNextEventsInteractor = GetTeamNextEventsInteractorImpl(),
     private val teamId: String
-) : ViewModel() {
+) : BaseVieModel() {
 
-    private var teamNextEventsLiveData = liveData(Dispatchers.IO) {
-        val teams = getTeamNextEventsInteractor.execute(teamId)
-        emit(teams)
-    }
+    private val teamNextEventRepository: TeamNextEventRepository by lazy { TeamNextEventsRepositoryImpl() }
+    private var teamNextEventsLiveData = MutableLiveData<List<Event>>()
 
-    fun getTeamNextEvents() = teamNextEventsLiveData
+    fun getTeamNextEventsLiveData(): LiveData<List<Event>> = teamNextEventsLiveData
+
+    fun getTeamNextEvents() =
+        viewModelScope.launch {
+            val result = teamNextEventRepository.getTeamNextEvents(teamId)
+            when (result) {
+                is ResultServiceHandler.Success ->
+                    teamNextEventsLiveData.postValue(result.value.events)
+                is ResultServiceHandler.Error ->
+                    errorLiveData.postValue(true)
+
+            }
+        }
 }

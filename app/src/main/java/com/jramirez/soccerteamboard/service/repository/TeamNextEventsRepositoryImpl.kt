@@ -1,5 +1,10 @@
 package com.jramirez.soccerteamboard.service.repository
 
-class TeamNextEventsRepositoryImpl : BaseRepository(), TeamNextEventRepository {
-    override suspend fun getTeamNextEvents(teamId: String) = client.getTeamNextEvents(teamId)
+import com.jramirez.soccerteamboard.service.ResultServiceHandler
+import com.jramirez.soccerteamboard.service.response.GetTeamNextEventsResponse
+
+class TeamNextEventsRepositoryImpl :
+    BaseRepository(), TeamNextEventRepository {
+    override suspend fun getTeamNextEvents(teamId: String): ResultServiceHandler<GetTeamNextEventsResponse> =
+        handleAPICall { client.getTeamNextEvents(teamId) }
 }

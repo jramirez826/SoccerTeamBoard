@@ -4,15 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jramirez.soccerteamboard.R
 import com.jramirez.soccerteamboard.databinding.FragmentTeamsBinding
 import com.jramirez.soccerteamboard.domain.Team
+import com.jramirez.soccerteamboard.extensions.replaceFragment
 import com.jramirez.soccerteamboard.presentation.MainActivity
 import com.jramirez.soccerteamboard.presentation.teamdetail.TeamDetailFragment
-import com.jramirez.soccerteamboard.extensions.replaceFragment
 
 class TeamsFragment : Fragment() {
 
@@ -32,11 +34,21 @@ class TeamsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setUpRecycler()
+        setUpViewModel()
+    }
+
+    private fun setUpViewModel() {
         viewModel = ViewModelProvider(this).get(TeamsViewModel::class.java)
-        viewModel.getTeams().observe(viewLifecycleOwner, Observer { teams ->
+        viewModel.getTeamsLiveData().observe(viewLifecycleOwner, Observer { teams ->
             teamsAdapter.setTeams(teams)
         })
+        viewModel.getErrorLiveData().observe(viewLifecycleOwner, Observer { fail ->
+            if (fail)
+                Toast.makeText(context, R.string.error_message, Toast.LENGTH_SHORT).show()
+        })
+        viewModel.getTeams()
     }
+
 
     private fun setUpRecycler() {
         with(binding.recyclerTeams) {

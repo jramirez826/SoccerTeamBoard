@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SoccerTeamBoard</string>
     <string name="upcoming_events">Upcoming Events</string>
+    <string name="error_message">Something happened, please restart the app.</string>
 </resources>

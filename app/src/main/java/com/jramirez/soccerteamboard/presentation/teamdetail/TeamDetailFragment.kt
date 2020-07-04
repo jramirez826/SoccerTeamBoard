@@ -6,14 +6,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams
-import android.view.ViewGroup.LayoutParams.*
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
-import androidx.core.view.setMargins
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jramirez.soccerteamboard.R
 import com.jramirez.soccerteamboard.databinding.FragmentTeamDetailBinding
 import com.jramirez.soccerteamboard.domain.Team
 import com.jramirez.soccerteamboard.extensions.getSocialMedia
@@ -47,10 +47,14 @@ class TeamDetailFragment(private val team: Team? = null) : Fragment() {
                 this,
                 TeamDetailViewModelFactory(team.id)
             ).get(TeamDetailViewModel::class.java)
-
-            viewModel.getTeamNextEvents().observe(viewLifecycleOwner, Observer { events ->
+            viewModel.getErrorLiveData().observe(viewLifecycleOwner, Observer { fail ->
+                if (fail)
+                    Toast.makeText(context, R.string.error_message, Toast.LENGTH_SHORT).show()
+            })
+            viewModel.getTeamNextEventsLiveData().observe(viewLifecycleOwner, Observer { events ->
                 nextEventsAdapter.setEvents(events)
             })
+            viewModel.getTeamNextEvents()
         }
     }
 
