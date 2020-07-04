@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.jramirez.soccerteamboard.databinding.ActivityMainBinding
 import com.jramirez.soccerteamboard.presentation.teams.TeamsFragment
-import com.jramirez.soccerteamboard.utils.addFragment
+import com.jramirez.soccerteamboard.extensions.addFragment
 
 class MainActivity : AppCompatActivity() {
 

@@ -82,7 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <LinearLayout
-        android:id="@+id/social_media"
+        android:id="@+id/social_media_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -93,42 +93,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lab_team_description">
-
-        <ImageView
-            android:id="@+id/btn_fb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_facebook" />
-
-        <ImageView
-            android:id="@+id/btn_ig"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_instagram"
-            android:layout_marginEnd="16dp" />
-
-        <ImageView
-            android:id="@+id/btn_twitter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_twitter" />
-
-        <ImageView
-            android:id="@+id/btn_web"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_chrome" />
-
-        <ImageView
-            android:id="@+id/btn_yt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_youtube" />
 
     </LinearLayout>
 
@@ -142,5 +106,5 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/social_media" />
+        app:layout_constraintTop_toBottomOf="@+id/social_media_container" />
 </androidx.constraintlayout.widget.ConstraintLayout>

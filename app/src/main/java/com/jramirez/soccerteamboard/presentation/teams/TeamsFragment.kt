@@ -12,7 +12,7 @@ import com.jramirez.soccerteamboard.databinding.FragmentTeamsBinding
 import com.jramirez.soccerteamboard.domain.Team
 import com.jramirez.soccerteamboard.presentation.MainActivity
 import com.jramirez.soccerteamboard.presentation.teamdetail.TeamDetailFragment
-import com.jramirez.soccerteamboard.utils.replaceFragment
+import com.jramirez.soccerteamboard.extensions.replaceFragment
 
 class TeamsFragment : Fragment() {
 

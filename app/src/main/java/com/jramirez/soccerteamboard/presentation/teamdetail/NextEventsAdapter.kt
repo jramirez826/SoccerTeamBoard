@@ -35,8 +35,8 @@ class NextEventsAdapter : RecyclerView.Adapter<NextEventsAdapter.NextEventViewHo
         RecyclerView.ViewHolder(binding.root) {
         fun bind(event: Event) {
             with(binding) {
-                labEventName.text = event.name
-                labEventTime.text = event.time
+                labEventName.text = event.name ?: ""
+                labEventTime.text = event.time ?: ""
             }
         }
     }

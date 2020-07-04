@@ -1,4 +1,4 @@
-package com.jramirez.soccerteamboard.utils
+package com.jramirez.soccerteamboard.extensions
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
