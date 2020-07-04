@@ -1,4 +1,4 @@
-package com.jramirez.soccerteamboard.presentation
+package com.jramirez.soccerteamboard.presentation.teams
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -11,7 +11,7 @@ class TeamsViewModel(private val getTeamsInteractor: GetTeamsInteractor = GetTea
     ViewModel() {
 
     private var teamsLiveData = liveData(Dispatchers.IO) {
-        val teams = getTeamsInteractor.execute(LeagueConstants.SPAIN_LEAGUE)
+        val teams = getTeamsInteractor.execute(LeagueConstants.LA_LIGA_ID)
         emit(teams)
     }
 

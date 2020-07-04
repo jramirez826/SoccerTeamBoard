@@ -1,4 +1,4 @@
-package com.jramirez.soccerteamboard.presentation
+package com.jramirez.soccerteamboard.presentation.teams
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.jramirez.soccerteamboard.databinding.FragmentTeamsBinding
+import com.jramirez.soccerteamboard.domain.Team
+import com.jramirez.soccerteamboard.presentation.MainActivity
+import com.jramirez.soccerteamboard.presentation.teamdetail.TeamDetailFragment
+import com.jramirez.soccerteamboard.utils.replaceFragment
 
 class TeamsFragment : Fragment() {
 
@@ -37,9 +40,19 @@ class TeamsFragment : Fragment() {
 
     private fun setUpRecycler() {
         with(binding.recyclerTeams) {
+            teamsAdapter.onItemClick = ::onItemClick
             layoutManager = LinearLayoutManager(context)
             adapter = teamsAdapter
         }
+    }
+
+    private fun onItemClick(team: Team) {
+        val mainActivity = (activity as MainActivity)
+        val fragment = TeamDetailFragment.newInstance(team)
+        mainActivity.replaceFragment(
+            mainActivity.binding.mainContainer.id,
+            fragment
+        )
     }
 
     override fun onDestroyView() {
@@ -47,4 +60,7 @@ class TeamsFragment : Fragment() {
         _binding = null
     }
 
+    companion object {
+        fun newInstance() = TeamsFragment()
+    }
 }

@@ -1,4 +1,4 @@
-package com.jramirez.soccerteamboard.presentation
+package com.jramirez.soccerteamboard.presentation.teams
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,6 +10,7 @@ import com.squareup.picasso.Picasso
 class TeamsAdapter : RecyclerView.Adapter<TeamsAdapter.TeamViewHolder>() {
 
     private var teams: List<Team> = emptyList()
+    var onItemClick: ((team: Team) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamViewHolder =
         TeamViewHolder(ItemTeamBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -34,6 +35,9 @@ class TeamsAdapter : RecyclerView.Adapter<TeamsAdapter.TeamViewHolder>() {
                 labTeamName.text = team.name
                 labTeamStadium.text = team.stadium
                 Picasso.get().load(team.badge).into(imgTeamBadge)
+                root.setOnClickListener {
+                    onItemClick?.invoke(team)
+                }
             }
         }
     }
