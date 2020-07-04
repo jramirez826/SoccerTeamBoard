@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-abstract class BaseRepository(val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
+open class BaseRepository(val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
     val client: TeamsAPI = RetrofitClient.client
 
     suspend fun <T : Any> handleAPICall(
