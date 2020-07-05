@@ -7,7 +7,7 @@ import com.jramirez.soccerteamboard.databinding.ItemTeamBinding
 import com.jramirez.soccerteamboard.domain.Team
 import com.squareup.picasso.Picasso
 
-class TeamsAdapter : RecyclerView.Adapter<TeamsAdapter.TeamViewHolder>() {
+class TeamsAdapter : RecyclerView.Adapter<TeamViewHolder>() {
 
     private var teams: List<Team> = emptyList()
     var onItemClick: ((team: Team) -> Unit)? = null
@@ -19,27 +19,12 @@ class TeamsAdapter : RecyclerView.Adapter<TeamsAdapter.TeamViewHolder>() {
 
     override fun onBindViewHolder(holder: TeamViewHolder, position: Int) {
         val team = teams[position]
-        holder.bind(team)
+        holder.bind(team, onItemClick)
     }
 
     fun setTeams(teams: List<Team>) {
         this.teams = teams
         notifyDataSetChanged()
-    }
-
-    inner class TeamViewHolder(private val binding: ItemTeamBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(team: Team) {
-            with(binding) {
-                labTeamName.text = team.name
-                labTeamStadium.text = team.stadium
-                Picasso.get().load(team.badge).into(imgTeamBadge)
-                root.setOnClickListener {
-                    onItemClick?.invoke(team)
-                }
-            }
-        }
     }
 
 }
