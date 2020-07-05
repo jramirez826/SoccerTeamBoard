@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.jramirez.soccerteamboard.databinding.ActivityMainBinding
 import com.jramirez.soccerteamboard.presentation.teams.TeamsFragment
-import com.jramirez.soccerteamboard.extensions.addFragment
+import com.jramirez.soccerteamboard.extensions.replaceFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        addFragment(
+        replaceFragment(
             binding.mainContainer.id,
             TeamsFragment.newInstance()
         )
